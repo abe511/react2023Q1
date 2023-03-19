@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import '../styles/App.css';
+// import '../styles/App.css';
 import { Item } from 'interfaces/SearchBar';
 import About from '../views/About';
 import NotFound from '../views/NotFound';
@@ -9,6 +9,7 @@ import Home from '../views/Home';
 import Header from './Header';
 
 class App extends Component {
+  // to be removed. for test purposes only
   items: Item[] = [
     { id: 123, name: 'Book' },
     { id: 23123, name: 'Booklet' },

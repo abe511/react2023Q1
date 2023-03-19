@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import Card from './Card';
 
+import '../styles/CardList.css';
+
 interface CardData {
   id: number;
   image: string;
@@ -31,7 +33,7 @@ class CardList extends Component<CardListProps> {
     const { cards } = this.props;
 
     return (
-      <div>
+      <div className="card-grid">
         {cards.map((card) => (
           <Card
             key={card.id}
