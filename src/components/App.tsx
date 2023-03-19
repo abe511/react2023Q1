@@ -1,20 +1,13 @@
+import { Component } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import '../styles/App.css';
-
 import { Item } from 'interfaces/SearchBar';
-import { CardProps } from 'interfaces/CardProps';
+import NotFound from '../views/NotFound';
 import SearchBar from './SearchBar';
-import CardList from './CardList';
-import Card from './Card';
+import Home from '../views/Home';
 
-import ava from '../assets/images/ava.jpg';
-
-// interface Item {
-//   id: number;
-//   name: string;
-// }
-
-function App() {
-  const items: Item[] = [
+class App extends Component {
+  items: Item[] = [
     { id: 123, name: 'Book' },
     { id: 23123, name: 'Booklet' },
     { id: 6723, name: 'Stream' },
@@ -25,68 +18,17 @@ function App() {
     { id: 456, name: 'House' },
   ];
 
-  const cards: CardProps[] = [
-    {
-      id: 12123,
-      image: ava,
-      title: 'Some Title',
-      caption: 'Some sample caption',
-      likes: 12,
-      views: 123,
-      saved: false,
-      tags: ['some', 'sample', 'tags'],
-    },
-    {
-      id: 12123,
-      image: ava,
-      title: 'Some Title',
-      caption: 'Some sample caption',
-      likes: 12,
-      views: 123,
-      saved: false,
-      tags: ['some', 'sample', 'tags'],
-    },
-    {
-      id: 12123,
-      image: ava,
-      title: 'Some Title',
-      caption: 'Some sample caption',
-      likes: 12,
-      views: 123,
-      saved: false,
-      tags: ['some', 'sample', 'tags'],
-    },
-    {
-      id: 12123,
-      image: ava,
-      title: 'Some Title',
-      caption: 'Some sample caption',
-      likes: 12,
-      views: 123,
-      saved: false,
-      tags: ['some', 'sample', 'tags'],
-    },
-  ];
-
-  return (
-    <div className="App">
-      <SearchBar items={items} />
-
-      <CardList cards={cards} />
-
-      <Card
-        // id={123}
-        // image="./assets/images/ava.jpg"
-        image={ava}
-        title="The Sample Card"
-        caption="Some sample description"
-        likes={5}
-        views={15}
-        saved={false}
-        tags={['sample', 'first', 'card']}
-      />
-    </div>
-  );
+  render() {
+    return (
+      <>
+        <SearchBar items={this.items} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </>
+    );
+  }
 }
 
 export default App;
