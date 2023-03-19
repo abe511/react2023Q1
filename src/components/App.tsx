@@ -2,9 +2,11 @@ import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import '../styles/App.css';
 import { Item } from 'interfaces/SearchBar';
+import About from '../views/About';
 import NotFound from '../views/NotFound';
 import SearchBar from './SearchBar';
 import Home from '../views/Home';
+import Header from './Header';
 
 class App extends Component {
   items: Item[] = [
@@ -21,9 +23,11 @@ class App extends Component {
   render() {
     return (
       <>
+        <Header />
         <SearchBar items={this.items} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>
