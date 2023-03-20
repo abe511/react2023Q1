@@ -1,0 +1,19 @@
+header {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.logo {
+    height: 5rem;
+}
+
+.active {
+    color: darkorchid;
+}
