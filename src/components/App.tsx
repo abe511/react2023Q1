@@ -2,11 +2,13 @@ import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
 // import '../styles/App.css';
 import { Item } from 'interfaces/SearchBar';
+import Home from '../views/Home';
 import About from '../views/About';
 import NotFound from '../views/NotFound';
+import NewCard from '../views/NewCard';
 import SearchBar from './SearchBar';
-import Home from '../views/Home';
 import Header from './Header';
+import Form from './Form/Form';
 
 class App extends Component {
   // to be removed. for test purposes only
@@ -28,6 +30,8 @@ class App extends Component {
         <SearchBar items={this.items} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/new" element={<NewCard />} />
+          <Route path="/form" element={<Form />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

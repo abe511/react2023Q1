@@ -1,5 +1,4 @@
 import { CardProps } from 'interfaces/CardProps';
-import ava from './assets/images/ava.jpg';
 import a from './assets/images/001.jpg';
 import b from './assets/images/002.jpg';
 import c from './assets/images/003.jpg';
@@ -45,7 +44,7 @@ const cards: CardProps[] = [
     tags: ['some', 'sample', 'tags'],
   },
   {
-    id: 1212324,
+    id: 1212327,
     image: d,
     title: 'Fourth Title',
     caption: 'Some sample caption',
@@ -125,7 +124,7 @@ const cards: CardProps[] = [
     tags: ['some', 'sample', 'tags'],
   },
   {
-    id: 1212324,
+    id: 1212354,
     image: l,
     title: 'Twelfth Title',
     caption: 'Some sample caption',

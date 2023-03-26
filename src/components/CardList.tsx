@@ -24,7 +24,7 @@ class CardList extends Component<CardListProps> {
     this.handleCardSave = this.handleCardSave.bind(this);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
   handleCardSave(id: number) {
     // handle card save logic here
   }
