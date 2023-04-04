@@ -36,8 +36,6 @@ class TextArea extends Component<TextAreaProps, TextAreaState> {
 
   componentDidUpdate(prevProps: TextAreaProps) {
     const { update, name } = this.props;
-    // eslint-disable-next-line react/destructuring-assignment
-    // console.log('update', prevProps.update, this.props.update);
     if (prevProps.update !== update) {
       const value: string | undefined = this.areaRef.current?.value;
       const { errorSetter, minLength, maxLength, required } = this.props;
@@ -54,7 +52,7 @@ class TextArea extends Component<TextAreaProps, TextAreaState> {
       <div className={className}>
         <label htmlFor={name}>{label}</label>
         <textarea
-          className={`text-field ${textAreaErrors?.length && 'field-error'}`}
+          className={`text-area ${textAreaErrors?.length && 'field-error'}`}
           ref={this.areaRef}
           name={name}
           maxLength={maxLength}
@@ -69,7 +67,7 @@ class TextArea extends Component<TextAreaProps, TextAreaState> {
             {textAreaErrors?.map((el, idx) => {
               return (
                 // eslint-disable-next-line react/no-array-index-key
-                <li key={idx} className="error-text text-field">
+                <li key={idx} className="error-text text-area">
                   {el}
                 </li>
               );
