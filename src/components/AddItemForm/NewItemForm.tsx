@@ -1,20 +1,21 @@
 /* eslint-disable react/state-in-constructor */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component, ElementType, RefObject } from 'react';
+import React, { Component, RefObject } from 'react';
 import Field from './Field';
-import Dropdown from './Dropdown';
 import DatePicker from './DatePicker';
-import Options from './Options';
+import Options from './Options_fRef';
 import Quiz from './Quiz';
 import FileUpload from './FileUpload';
 
+import Dropdown from './Dropdown';
 import TextArea from './TextArea';
 import TextField from './TextField';
 
-import { Errors } from './FormInterfaces';
+import { Errors, Option } from './FormInterfaces';
 
-const types = [
+// placeholder values. to be replaced with a get request to an api
+const types: Option[] = [
   {
     id: '1',
     value: 'type1',
@@ -107,7 +108,6 @@ class NewItemForm extends Component<NewItemProps, NewItemState> {
 
   render() {
     const { title, description, type, update, errors } = this.state;
-
     // eslint-disable-next-line react/destructuring-assignment
     console.log('after', this.state.errors);
 
@@ -143,56 +143,35 @@ class NewItemForm extends Component<NewItemProps, NewItemState> {
             update={update}
             errorSetter={this.setErrorState}
             errors={errors}
-            minLength={2}
+            minLength={16}
             maxLength={512}
             rows={5}
             cols={30}
             required
           />
-          {/* <Field className="title" text="Title" name="title" error="title error">
-            <input
-              ref={this.textInputRef}
-              type="text"
-              name="title"
-              maxLength={50}
-              minLength={2}
-              required
-            />
-          </Field>
-          <TextArea
-            className="description"
-            text="Description"
-            name="description"
-            error="description error"
-          >
-            <textarea
-              ref={this.textAreaRef}
-              name="description"
-              minLength={1}
-              maxLength={512}
-              required
-            />
-          </TextArea>
           <br />
-          <Dropdown className="type" text="Type" name="type" error="type error">
-            <select ref={this.selectedOptionRef} name="type" id="dropdown" defaultValue="none">
-              <option value="none" disabled hidden>
-                Select Type
-              </option>
-              {types.map((el) => {
-                const { id, value, text } = el;
-                return (
-                  <option key={id} value={value}>
-                    {text}
-                  </option>
-                );
-              })}
-            </select>
-          </Dropdown>
+          <Dropdown
+            className="type"
+            label="Type"
+            name="type"
+            update={update}
+            errorSetter={this.setErrorState}
+            errors={errors}
+            types={types}
+            required
+          />
           <br />
-          <DatePicker className="date" text="Date" name="date" error="date error">
-            <input type="date" required />
-          </DatePicker>
+          <DatePicker
+            className="date-picker"
+            label="Select date"
+            name="datepicker"
+            update={update}
+            errorSetter={this.setErrorState}
+            errors={errors}
+            min={new Date()}
+            required
+          />
+          {/*
           <Options className="options" text="Options" name="options" error="options error">
             <label htmlFor="option1">
               <input type="checkbox" name="option1" />

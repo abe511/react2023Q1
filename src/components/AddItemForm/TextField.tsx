@@ -34,8 +34,6 @@ class TextField extends Component<TextFieldProps, TextFieldState> {
 
   componentDidUpdate(prevProps: TextFieldProps) {
     const { update, name } = this.props;
-    // eslint-disable-next-line react/destructuring-assignment
-    // console.log('update', prevProps.update, this.props.update);
     if (prevProps.update !== update) {
       const value: string | undefined = this.inputRef.current?.value;
       const { errorSetter, minLength, maxLength, required } = this.props;

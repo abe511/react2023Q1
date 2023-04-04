@@ -5,3 +5,9 @@ export interface Errors {
   second: string[];
   textArea: string[];
 }
+
+export interface Option {
+  id: string;
+  value: string;
+  text: string;
+}
