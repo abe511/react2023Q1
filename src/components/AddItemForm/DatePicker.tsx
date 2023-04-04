@@ -58,7 +58,6 @@ class DatePicker extends Component<DatePickerProps, DatePickerState> {
       <div className={className}>
         <label htmlFor={name}>{label}</label>
         <input
-          id="datepicker"
           className={`datepicker-field ${datePickerErrors?.length && 'field-error'}`}
           type="date"
           ref={this.dateRef}
