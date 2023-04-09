@@ -15,6 +15,12 @@ class Header extends Component {
           <NavLink to="/" end>
             Home
           </NavLink>
+          <NavLink to="/new" end>
+            New Card
+          </NavLink>
+          <NavLink to="/form" end>
+            Form
+          </NavLink>
           <NavLink to="/about" end>
             About Us
           </NavLink>
