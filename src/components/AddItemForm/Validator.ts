@@ -75,6 +75,40 @@ class Validator {
 
     return [];
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  optionField(values: [string, string][], required: number) {
+    if (required) {
+      const result = values.reduce((acc, [key, value]) => {
+        if (key.includes('option') && value) {
+          // eslint-disable-next-line no-param-reassign
+          acc += 1;
+        }
+        return acc;
+      }, 0);
+      if (result < required) {
+        return [`Select at least ${required} option`];
+      }
+    }
+    return [];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  radioGroupField(value: string, required: boolean) {
+    if (required && value === '') {
+      return [`Make a choice`];
+    }
+
+    return [];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  imageUploadField(imageName: string | undefined, required = false) {
+    if (imageName === '' && required) {
+      return ['Select an image'];
+    }
+    return [];
+  }
 }
 
 export default Validator;

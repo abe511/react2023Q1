@@ -2,17 +2,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component, RefObject } from 'react';
-import Field from './Field';
-import DatePicker from './DatePicker';
-import Options from './Options_fRef';
-import Quiz from './Quiz';
-import FileUpload from './FileUpload';
 
-import Dropdown from './Dropdown';
-import TextArea from './TextArea';
 import TextField from './TextField';
+import TextArea from './TextArea';
+import Dropdown from './Dropdown';
+import DatePicker from './DatePicker';
+import Options from './Options';
+import RadioGroup from './RadioGroup';
+import ImageUpload from './ImageUpload';
 
-import { Errors, Option } from './FormInterfaces';
+import FormCardList from './FormCardList';
+
+import { Errors, Option, FormCardData } from './FormInterfaces';
 
 // placeholder values. to be replaced with a get request to an api
 const types: Option[] = [
@@ -33,81 +34,85 @@ const types: Option[] = [
   },
 ];
 
+// interface FormCardData {
+//   title: string;
+//   author: string;
+//   description: string;
+//   type: string;
+//   date: string;
+//   option: string;
+//   radio: string;
+//   image: string;
+// }
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface NewItemProps {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface NewItemState {
   update: boolean;
   errors: Errors;
-  title: string | undefined;
-  description: string | undefined;
-  type: string | undefined;
+  imageURL: string;
+  cards: FormCardData[];
 }
 
 class NewItemForm extends Component<NewItemProps, NewItemState> {
-  private textInputRef: RefObject<HTMLInputElement>;
-
-  private textAreaRef: RefObject<HTMLTextAreaElement>;
-
-  private selectedOptionRef: RefObject<HTMLSelectElement>;
-
   constructor(props: NewItemProps) {
     super(props);
 
-    this.textInputRef = React.createRef<HTMLInputElement>();
-
-    this.textAreaRef = React.createRef<HTMLTextAreaElement>();
-
-    this.selectedOptionRef = React.createRef<HTMLSelectElement>();
+    this.setImageURL = this.setImageURL.bind(this);
 
     this.state = {
       update: false,
       errors: {
         title: [],
         second: [],
-        textArea: [],
+        textarea: [],
+        dropdown: [],
+        datepicker: [],
+        options: [],
+        radio: [],
+        image: [],
       },
       title: '',
+      author: '',
       description: '',
       type: '',
+      date: '',
+      option: '',
+      radio: '',
+      image: '',
+      // imageURL: '',
+      cards: [],
     };
   }
 
   setErrorState = (htmlElement: keyof Errors, newErrors: string[]) => {
-    // console.log('new err:', newErrors, htmlElement);
-    this.setState(
-      (state) => {
-        const { errors } = state;
-        return {
-          errors: {
-            ...errors,
-            [htmlElement]: [...newErrors],
-          },
-        };
-      },
-      // callback
-      () => {
-        // eslint-disable-next-line react/destructuring-assignment
-        console.log('elem', htmlElement, 'errors:', this.state.errors);
-      }
-    );
-  };
-
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // toggle form validation
-    this.setState((prevState) => ({
-      update: !prevState.update,
-    }));
-    this.setState({
-      title: this.textInputRef.current?.value,
-      description: this.textAreaRef.current?.value,
-      type: this.selectedOptionRef.current?.value,
+    this.setState((state) => {
+      const { errors } = state;
+      return {
+        errors: {
+          ...errors,
+          [htmlElement]: [...newErrors],
+        },
+      };
     });
   };
 
+  setImageURL(url: string) {
+    this.setState({ imageURL: url });
+  }
+
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // toggles form validation
+    this.setState((prevState) => ({
+      update: !prevState.update,
+    }));
+    
+  };
+
   render() {
-    const { title, description, type, update, errors } = this.state;
+    const { update, errors, imageURL, cards } = this.state;
     // eslint-disable-next-line react/destructuring-assignment
     console.log('after', this.state.errors);
 
@@ -171,46 +176,44 @@ class NewItemForm extends Component<NewItemProps, NewItemState> {
             min={new Date()}
             required
           />
-          {/*
-          <Options className="options" text="Options" name="options" error="options error">
-            <label htmlFor="option1">
-              <input type="checkbox" name="option1" />
-              Option 1
-            </label>
-            <br />
-            <label htmlFor="option1">
-              <input type="checkbox" name="option2" />
-              Option 2
-            </label>
-            <br />
-            <label htmlFor="option1">
-              <input type="checkbox" name="option3" />
-              Option 3
-            </label>
-          </Options>
-          <Quiz className="choice" text="Choose one" name="choice" error="choice error">
-            <label htmlFor="option1">
-              <input type="radio" name="choice" />
-              Yes
-            </label>
-            <label htmlFor="option2">
-              <input type="radio" name="choice" />
-              No
-            </label>
-            <label htmlFor="option3">
-              <input type="radio" name="choice" />
-              Somewhat
-            </label>
-          </Quiz>
-          <FileUpload className="upload" text="Upload image" name="upload" error="upload error">
-            <input type="file" name="image" accept="image/jpeg, image/png, image/gif" />
-          </FileUpload> */}
+          <Options
+            className="options"
+            legend="Options"
+            name="option"
+            update={update}
+            errorSetter={this.setErrorState}
+            errors={errors}
+            required={1}
+          />
+          <br />
+          <RadioGroup
+            className="radio-group"
+            legend="Choose one"
+            name="radio"
+            update={update}
+            errorSetter={this.setErrorState}
+            errors={errors}
+            required
+          />
+          <ImageUpload
+            className="upload image"
+            label="Upload image"
+            name="image"
+            update={update}
+            errorSetter={this.setErrorState}
+            errors={errors}
+            format="image/jpeg, image/png, image/gif"
+            required
+            setImageURL={this.setImageURL}
+            // imageURL={imageURL}
+          />
+          <FormCardList cards={cards} />
 
           <button type="submit">Submit</button>
         </form>
-        <p>{title}</p>
-        <p>{description}</p>
-        <p>{type}</p>
+        <p>{imageURL}</p>
+        {/* <p>{description}</p>
+        <p>{type}</p> */}
       </>
     );
   }
